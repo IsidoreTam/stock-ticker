@@ -3,14 +3,18 @@ function SearchController (model, searchView, resultsView){
     this.searchView = searchView;
     this.resultsView = resultsView;
 
-    // configUI this is the inital setup for the controller
+    // config the initial ui from data
     this.configUI = async function(){
-        const data = await model.init();
-    // pass the data to the view
-        this.resultsView.configUI(data.results[0])
+        const data = await model.init();     
+        resultsView.configUI(data.results[0]);
+   }
+    // form submit button handler
+   this.onHandleSubmit = async (e)=> {
+    e.preventDefault();
+    // skipping over validation
+
+    const searchResponse = await this.model.search(e.currentTarget.searchTerm.value)
     }
-    this.onCheckedHandler = (e)=> { console.log(this) }
-    this.configUI()
     return this
 }
 export default SearchController
