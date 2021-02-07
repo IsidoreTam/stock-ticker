@@ -22,12 +22,10 @@ const noResultsView = `
 `;
 
 function ResultsView(viewId) {
-  var elem;
-
   this.container = document.querySelector(viewId);
 
   this.configUI = function (stock) {
-    elem = ejs.render(stockview, { stock });
+    const elem = ejs.render(stockview, { stock });
     this.container.insertAdjacentHTML("afterbegin", elem);
   };
 
@@ -35,15 +33,16 @@ function ResultsView(viewId) {
     // if there are no people in the results
     this.removeChildElements();
     if (stocks.results.length === 0) {
-      elem = ejs.render(noResultsView);
+      const elem = ejs.render(noResultsView);
       this.container.insertAdjacentHTML("afterbegin", elem);
     }
     // search returns results
     else if (stocks.results !== 0){
       stocks.results.forEach((stock) => {
-        elem = ejs.render(stockView, { stock });
+        const elem = ejs.render(stockView, { stock });
+        this.container.insertAdjacentHTML("afterbegin", elem);
       });
-      this.container.insertAdjacentHTML("afterbegin", elem);
+      
     }
   }
 }
