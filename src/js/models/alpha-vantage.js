@@ -9,6 +9,7 @@ function AlphaVantageModel(){
 
     this.search = function(search){
         let url = new URL (this.apiBaseUrl + search + '&apikey=IM93V6X6OXWLN65O')
+        console.log(url);
 
         return this.query(url)
     }

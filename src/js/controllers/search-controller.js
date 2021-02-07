@@ -1,7 +1,7 @@
 function SearchController (model, searchView, resultsView){
     this.model = model;
     this.searchView = searchView;
-    this.resultsView = resultsView;
+    this.searchView.setController(this);
 
     // config the initial ui from data
     this.configUI = async function(){
@@ -14,6 +14,8 @@ function SearchController (model, searchView, resultsView){
     // skipping over validation
 
     const searchResponse = await this.model.search(e.currentTarget.searchTerm.value)
+
+    resultsView.renderStocks(searchResponse);
     }
     this.configListeners();
     return this
