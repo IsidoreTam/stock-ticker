@@ -1,3 +1,5 @@
+import regeneratorRuntime from "regenerator-runtime";
+
 function SearchController (model, searchView, resultsView){
     this.model = model;
     this.searchView = searchView;
@@ -10,10 +12,11 @@ function SearchController (model, searchView, resultsView){
     // config the initial ui from data
     this.configUI = function(){
     }
-    // form submit button handler
-   this.onHandleSubmit = function(e) {
+    // submit button handler
+   this.onHandleSubmit = async (e) => {
     e.preventDefault();
-    const searchResponse = this.model.search(e.currentTarget.searchTerm.value)
+    const searchResponse = await this.model.search(e.currentTarget.searchTerm.value)
+    console.log(searchResponse);
     resultsView.renderStocks(searchResponse);
     }
     

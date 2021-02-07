@@ -11,14 +11,18 @@
         <h1>Stock Ticker</h1>
     </header>
     <main>
-        <div id = "search">
-            <label for="searchTerm">Stock Symbol<br /></label>
-            <input id="searchTerm" type="text" required>
-        </div>
-        <button>search</button>
-
-        <aside id="results">
+        <form id = "search" class="search-api">
+            <div class="control">
+                <label for="searchTerm">Stock Symbol<br /></label>
+                <input id="searchTerm" type="text" required>
+            </div>
             
+            <button>search</button>
+        </form>
+        
+
+        <aside id="results" class="results">
+
         </aside>
     </main>
      <script src="js/index.js" type="module"></script>    

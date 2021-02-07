@@ -5,12 +5,12 @@ const stockView=`
     <header><h3 class="symbol"><%= stock.symbol %></h3></header>
 
     <ul class = "details">
-        <li>Name: <span><%= stock.name %></span> </li>
-        <li>Price: <span><%= stock.price %></span> </li>
-        <li>Currency: <span><%= stock.currency %></span> </li>
-        <li>Exchange: <span><%= stock.exchange %></span> </li>
-        <li>Country: <span><%= stock.country %></span>  </li>
-        <li>Date: <span><%= stock.date %></span> </li>
+        <li>Name: <span><%= stock.Name %></span> </li>
+        <li>Price: <span><%= stock.Price %></span> </li>
+        <li>Currency: <span><%= stock.Currency %></span> </li>
+        <li>Exchange: <span><%= stock.Exchange %></span> </li>
+        <li>Country: <span><%= stock.Country %></span>  </li>
+        <li>Date: <span><%= stock.Date %></span> </li>
     </ul>
 </aside>
 `;
@@ -29,21 +29,29 @@ function ResultsView(viewId) {
     this.container.insertAdjacentHTML("afterbegin", elem);
   };
 
-  this.renderStocks = function (stocks){
+  this.renderStocks = function (stock){
     // if there are no people in the results
     this.removeChildElements();
-    if (stocks.results.length === 0) {
+
+    console.log(stock);
+
+    if (!stock) {
       const elem = ejs.render(noResultsView);
       this.container.insertAdjacentHTML("afterbegin", elem);
     }
     // search returns results
-    else if (stocks.results !== 0){
-      stocks.results.forEach((stock) => {
-        const elem = ejs.render(stockView, { stock });
-        this.container.insertAdjacentHTML("afterbegin", elem);
-      });
-      
+    else{
+      const elem = ejs.render(stockView, { stock });
+      this.container.insertAdjacentHTML("afterbegin", elem);
     }
   }
+  this.removeChildElements = function () {
+    this.container.querySelectorAll("aside").forEach((person) => {
+      console.log("remove")
+      console.log(person)
+      this.container.removeChild(person);
+    });
+  };
+  return this;
 }
 export default ResultsView;

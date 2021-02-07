@@ -1,12 +1,12 @@
+import regeneratorRuntime from "regenerator-runtime";
+
 function AlphaVantageModel(){
     this.apiBaseUrl = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol='
 
-    this.search = function(search){
+    this.search = async function(search){
         let url = new URL (this.apiBaseUrl + search + '&apikey=IM93V6X6OXWLN65O')
-        const req = fetch(url);
-        const res = req.json();
-        console.log(url);
-        console.log(res);
+        const req = await fetch(url);
+        const res = await req.json();
         return res;
     }
 }
