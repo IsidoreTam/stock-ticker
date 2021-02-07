@@ -15,6 +15,7 @@ function SearchController (model, searchView, resultsView){
 
     const searchResponse = await this.model.search(e.currentTarget.searchTerm.value)
     }
+    this.configListeners();
     return this
 }
 export default SearchController
