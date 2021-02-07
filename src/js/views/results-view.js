@@ -1,4 +1,4 @@
-import ejs from ejs
+import ejs from "ejs";
 
 const stockView=`
 <aside class ="stock">
@@ -22,15 +22,16 @@ const noResultsView = `
 `;
 
 function ResultsView(viewId) {
+  var elem;
+
   this.container = document.querySelector(viewId);
 
   this.configUI = function (stock) {
-    const elem = ejs.render(stockview, { stock });
+    elem = ejs.render(stockview, { stock });
     this.container.insertAdjacentHTML("afterbegin", elem);
   };
 
   this.renderStocks = function (stocks){
-    const elem;
     // if there are no people in the results
     this.removeChildElements();
     if (stocks.results.length === 0) {
