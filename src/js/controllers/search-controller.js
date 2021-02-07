@@ -3,20 +3,20 @@ function SearchController (model, searchView, resultsView){
     this.searchView = searchView;
     this.searchView.setController(this);
 
+    //config listeners
+    this.configListeners =  () => {
+        this.searchView.view.addEventListener("submit", this.onHandleSubmit)
+    }
     // config the initial ui from data
-    this.configUI = async function(){
-        const data = await model.init();     
-        resultsView.configUI(data.results[0]);
-   }
+    this.configUI = function(){
+    }
     // form submit button handler
-   this.onHandleSubmit = async (e)=> {
+   this.onHandleSubmit = function(e) {
     e.preventDefault();
-    // skipping over validation
-
-    const searchResponse = await this.model.search(e.currentTarget.searchTerm.value)
-
+    const searchResponse = this.model.search(e.currentTarget.searchTerm.value)
     resultsView.renderStocks(searchResponse);
     }
+    
     this.configListeners();
     return this
 }

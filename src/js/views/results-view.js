@@ -12,7 +12,8 @@ const stockView=`
         <li>Country: <span><%= stock.country %></span>  </li>
         <li>Date: <span><%= stock.date %></span> </li>
     </ul>
-</aside>`;
+</aside>
+`;
 const noResultsView = `
 <aside class="error">
   <header>
@@ -20,7 +21,6 @@ const noResultsView = `
  <header>
 </aside>
 `;
-
 function ResultsView(viewId) {
   this.container = document.querySelector(viewId);
 
@@ -46,3 +46,4 @@ function ResultsView(viewId) {
     }
   }
 }
+export default ResultsView;
