@@ -2,15 +2,13 @@ import ejs from "ejs";
 
 const stockView=`
 <aside class ="stock">
-    <header><h3 class="symbol"><%= stock.symbol %></h3></header>
-
+    <header><h3 class="symbol"><%= sView.symbol %></span> </h3></header>
     <ul class = "details">
-        <li>Name: <span><%= stock.Name %></span> </li>
-        <li>Price: <span><%= stock.Price %></span> </li>
-        <li>Currency: <span><%= stock.Currency %></span> </li>
-        <li>Exchange: <span><%= stock.Exchange %></span> </li>
-        <li>Country: <span><%= stock.Country %></span>  </li>
-        <li>Date: <span><%= stock.Date %></span> </li>
+        <li>Price: <span><%= sView.price %></span> </li>
+        <li>Date: <span><%= sView.date %></span> </li>
+        <li>Previous Close: <span><%= sView.pClose %></span> </li>
+        <li>Change: <span><%= sView.change %></span> </li>
+        <li>Change Percent: <span><%= sView.cPercent %></span>  </li>
     </ul>
 </aside>
 `;
@@ -24,16 +22,18 @@ const noResultsView = `
 function ResultsView(viewId) {
   this.container = document.querySelector(viewId);
 
-  this.configUI = function (stock) {
-    const elem = ejs.render(stockview, { stock });
-    this.container.insertAdjacentHTML("afterbegin", elem);
-  };
-
   this.renderStocks = function (stock){
     // if there are no people in the results
     this.removeChildElements();
 
-    console.log(stock);
+    let sView = {
+      "symbol": stock.["Global Quote"].["01. symbol"],
+      "price": stock.["Global Quote"].["05. price"],
+      "date": stock.["Global Quote"].["07. latest trading day"],
+      "pClose": stock.["Global Quote"].["08. previous close"],
+      "change": stock.["Global Quote"].["09. change"],
+      "cPercent": stock.["Global Quote"].["10. change percent"]
+    }
 
     if (!stock) {
       const elem = ejs.render(noResultsView);
@@ -41,15 +41,13 @@ function ResultsView(viewId) {
     }
     // search returns results
     else{
-      const elem = ejs.render(stockView, { stock });
+      const elem = ejs.render(stockView, { sView });
       this.container.insertAdjacentHTML("afterbegin", elem);
     }
   }
   this.removeChildElements = function () {
-    this.container.querySelectorAll("aside").forEach((person) => {
-      console.log("remove")
-      console.log(person)
-      this.container.removeChild(person);
+    this.container.querySelectorAll("aside").forEach((stock) => {
+      this.container.removeChild(stock);
     });
   };
   return this;

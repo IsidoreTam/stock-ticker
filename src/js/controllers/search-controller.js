@@ -16,7 +16,6 @@ function SearchController (model, searchView, resultsView){
    this.onHandleSubmit = async (e) => {
     e.preventDefault();
     const searchResponse = await this.model.search(e.currentTarget.searchTerm.value)
-    console.log(searchResponse);
     resultsView.renderStocks(searchResponse);
     }
     
